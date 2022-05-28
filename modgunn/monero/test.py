@@ -32,7 +32,7 @@ def test_extract_private_key_own_signing():
     """
     If you can understand this you understand the protocol.
 
-    How Schorr signatures work:
+    How Schnorr signatures work:
     s == r + hash(R|C|msg)*c
     sG == R + hash(R|C|msg)*C
     R|s (| concat) is the signature.
