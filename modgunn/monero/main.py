@@ -2,19 +2,23 @@ import secrets
 from socket import CAN_BCM_TX_EXPIRED
 
 import nacl.bindings, nacl.signing
-#from binascii import hexlify, unhexlify
-#import pysodium
+
+# from binascii import hexlify, unhexlify
+# import pysodium
 from Cryptodome.Hash import keccak
 
 
 from monero.wallet import Wallet
 from monero.backends.jsonrpc import JSONRPCWallet
 
+
 def itb(integer):
-    return (integer).to_bytes(32, 'little')
+    return (integer).to_bytes(32, "little")
+
 
 def bti(b):
-    return int.from_bytes(b, 'little')
+    return int.from_bytes(b, "little")
+
 
 def reduce32(b):
     try:
@@ -23,38 +27,49 @@ def reduce32(b):
         print(e)
         return b
 
+
 def validate(point):
     return nacl.bindings.crypto_core_ed25519_is_valid_point(point)
+
 
 def scalar_add(scalar_a, scalar_b):
     return nacl.bindings.crypto_core_ed25519_scalar_add(scalar_a, scalar_b)
 
+
 def scalar_sub(scalar_a, scalar_b):
     return nacl.bindings.crypto_core_ed25519_scalar_sub(scalar_a, scalar_b)
+
 
 def scalar_mult(scalar_a, scalar_b):
     return nacl.bindings.crypto_core_ed25519_scalar_mul(scalar_a, scalar_b)
 
+
 def scalar_division(scalar_a, scalar_b):
     return scalar_mult(scalar_a, nacl.bindings.crypto_core_ed25519_scalar_invert(scalar_b))
+
 
 def points_add(point_a, point_b):
     return nacl.bindings.crypto_core_ed25519_add(point_a, point_b)
 
+
 def scalar_to_point(scalar):
     return nacl.bindings.crypto_scalarmult_ed25519_base_noclamp(scalar)
+
 
 def scalar_mult_point(scalar, point):
     return nacl.bindings.crypto_scalarmult_ed25519_noclamp(scalar, point)
 
+
 def hash256(data):
-    return keccak.new(digest_bits=256).update(data).digest()  
+    return keccak.new(digest_bits=256).update(data).digest()
+
 
 def get_public_from_secret(sk):
     return scalar_to_point(sk)
 
+
 def generate_keys():
-    l = 2 ** 252 + 27742317777372353535851937790883648493 
+    l = 2**252 + 27742317777372353535851937790883648493
     # l prime order of the elliptic curve basepoint
 
     spend_sk = itb(secrets.randbits(256) % l)
@@ -66,16 +81,15 @@ def generate_keys():
 
     return [[spend_sk, spend_pk], [view_sk, view_pk]]
 
-def build_monero_address(): 
-    
-    network_bytes = 53# 18 main chain, 53 test chain, 24 stage chain
-    data = (
-        bytearray([network_bytes])
-        + self._decoded[1:65]
-    )
+
+def build_monero_address():
+
+    network_bytes = 53  # 18 main chain, 53 test chain, 24 stage chain
+    data = bytearray([network_bytes]) + self._decoded[1:65]
 
     checksum = hash256(data)[:4]
     pass
+
 
 def test_keys():
     """
@@ -88,21 +102,20 @@ def test_keys():
     keys1 = [alice[0][0], alice[0][1]]
     keys2 = [bob[0][0], bob[0][1]]
 
-
-    #print('sec1 + sec2 = sec', scalar_add(keys1[0], keys2[0]).hex())
-    #print('pub1 + pub2 = pub', points_add(keys1[1], keys2[1]).hex())
-    #print('toPub(sec)  = pub', get_public_from_secret(scalar_add(keys1[0], keys2[0])).hex())
+    # print('sec1 + sec2 = sec', scalar_add(keys1[0], keys2[0]).hex())
+    # print('pub1 + pub2 = pub', points_add(keys1[1], keys2[1]).hex())
+    # print('toPub(sec)  = pub', get_public_from_secret(scalar_add(keys1[0], keys2[0])).hex())
     assert points_add(keys1[1], keys2[1]) == get_public_from_secret(scalar_add(keys1[0], keys2[0]))
 
-#test_keys()
 
-#def generate_from_keys_rpc_test(...):
-    # use "generate_from_keys" Monero Wallet RPC call to generate from keys. 
-    #w1 = Wallet(JSONRPCWallet(port=28088))
-    #w2 = Wallet(JSONRPCWallet(port=38088))
-    #add pub spend and view keys together
-    #once partial private key leaked, generate_from_keys
+# test_keys()
 
+# def generate_from_keys_rpc_test(...):
+# use "generate_from_keys" Monero Wallet RPC call to generate from keys.
+# w1 = Wallet(JSONRPCWallet(port=28088))
+# w2 = Wallet(JSONRPCWallet(port=38088))
+# add pub spend and view keys together
+# once partial private key leaked, generate_from_keys
 
 
 ####
@@ -118,7 +131,7 @@ def test_extract_private_key_own_signing():
     msg is the message we are signing.
 
     If Algorand exposed ed25519 scalarmult as an opcode, it would be trivial to check.
-    It doesn't, but it does expose ed25519verify. We can hack it to our favor. 
+    It doesn't, but it does expose ed25519verify. We can hack it to our favor.
     If we force r = 1 (r = 0 seems to not be allowed by nacl :C):
 
     s == 1 + hash(G|C|msg)*c
@@ -129,31 +142,32 @@ def test_extract_private_key_own_signing():
     be the hash(R|C|msg)*c. Since we know R, we know C and we know msg, we can calculate the
     hash and take its multiplicative inverse with s to produce the scalar c, i.e. private key.
 
-    (Note that ed25519verify sees msg as b'progData'| program_hash | data. The new 
-    ed25519verify_bare will not require those things.) 
+    (Note that ed25519verify sees msg as b'progData'| program_hash | data. The new
+    ed25519verify_bare will not require those things.)
 
     """
     keys = generate_keys()
-    c = keys[0][0] # private key
-    C = keys[0][1] # public key
+    c = keys[0][0]  # private key
+    C = keys[0][1]  # public key
 
     msg = b"ProgData" + b"programhash" + b"data_A"
 
-    r = itb(1) #We fixate r = 1
+    r = itb(1)  # We fixate r = 1
     R = scalar_to_point(r)
 
     challenge = reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg))
 
-    s = scalar_add(r, scalar_mult(challenge, c)) # s == r + hash(...)*c
+    s = scalar_add(r, scalar_mult(challenge, c))  # s == r + hash(...)*c
     sG = scalar_to_point(s)
 
     # sG == R + hash(...)*C
-    right_hand_side = points_add(R, scalar_mult_point(challenge, C)) 
-    assert(sG == right_hand_side)
+    right_hand_side = points_add(R, scalar_mult_point(challenge, C))
+    assert sG == right_hand_side
 
     # (s-r)*hash(...)^-1 == c
     c_extracted = scalar_division(scalar_sub(s, r), challenge)
     assert c == c_extracted
+
 
 def test_extract_private_key_import_verify():
     """
@@ -163,7 +177,7 @@ def test_extract_private_key_import_verify():
     keys = generate_keys()
     c = keys[0][0]
     C = keys[0][1]
-    
+
     msg = b"ProgData" + b"programhash" + b"data_A"
     r = itb(1)
     R = scalar_to_point(r)
@@ -172,8 +186,7 @@ def test_extract_private_key_import_verify():
     signature = R + s
     smessage = signature + msg
     # crypto_sign_open returns msg IF it the signature is right, otherwise raises error
-    assert msg == nacl.bindings.crypto_sign_open(smessage, C) 
-
+    assert msg == nacl.bindings.crypto_sign_open(smessage, C)
 
 
 test_keys()

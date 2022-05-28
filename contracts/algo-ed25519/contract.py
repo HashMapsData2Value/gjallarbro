@@ -47,8 +47,7 @@ def approval():
         Assert(
             And(
                 Txn.sender() == App.globalGet(alice_algo_address),
-                Txn.note()
-                == App.globalGet(alice_partial_pk),  # REPLACE with NEW OPCODE
+                Txn.note() == App.globalGet(alice_partial_pk),  # REPLACE with NEW OPCODE
                 Global.latest_timestamp() < App.globalGet(t0),
             )
         ),
