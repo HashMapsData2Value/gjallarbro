@@ -1,5 +1,5 @@
-# Gjallarbrú
-Implementation of the Algorand cross-chain atomic-swap protocol described in this [ARC issue](https://github.com/algorandfoundation/ARCs/issues/92), originally proposed by Joël Gugger (H4sh3d) for Monero.
+# Gjallarbro
+Implementation of the Algorand cross-chain atomic-swap protocol described in this [ARC issue](https://github.com/algorandfoundation/ARCs/issues/92).
 
 Alice has Algo on Algorand and wants x on X. Bob has x on X and wants Algo on Algorand. Through this protocol, utilizing hashed timelocks and adaptor signatures, they can trustlessly get what they both want. But the true innovation of this protocol is that it can be used on blockchains that DON'T have ANY scripting capabilities. It has primarily been designed with Monero in mind, but it could probably be extended to Nano as well, as both are ed25519-based chains. Cardano is also an ed25519-based chain but as it has its own smart contracts, there are probably better ways of bridging over.
 
