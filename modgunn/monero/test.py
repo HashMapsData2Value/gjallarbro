@@ -92,9 +92,11 @@ def test_extract_private_key_import_verify():
     challenge = reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg))
     s = scalar_add(r, scalar_mult(challenge, c))
     signature = R + s
+    print(signature)
     smessage = signature + msg
     # crypto_sign_open returns msg IF it the signature is right, otherwise raises error
     assert msg == nacl.bindings.crypto_sign_open(smessage, C)
+    print(validate_point(b'XFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'))
 
 
 

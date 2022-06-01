@@ -19,7 +19,7 @@ def reduce32(b):
         print(e)
         return b
 
-def validate(point):
+def validate_point(point):
     return nacl.bindings.crypto_core_ed25519_is_valid_point(point)
 
 def scalar_add(scalar_a, scalar_b):
