@@ -1,0 +1,181 @@
+#pragma version 6
+txn ApplicationID
+int 0
+==
+bnz main_l16
+txn OnCompletion
+int NoOp
+==
+bnz main_l7
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l6
+txn OnCompletion
+int OptIn
+==
+txn OnCompletion
+int CloseOut
+==
+||
+txn OnCompletion
+int UpdateApplication
+==
+||
+bnz main_l5
+err
+main_l5:
+int 0
+return
+main_l6:
+global CurrentApplicationAddress
+balance
+int 0
+==
+txn Sender
+byte "JCGNB4PJBLBMJIJQHOWNLXJKGUQDLNOTSWOEZMXVG7F3RG23NYR2DOEH4U"
+==
+txn Sender
+byte "QIK2JTH3J57PU7WLYONAWC7VBLXRNYRRJZJQZ5LXKRZKPEWIXB2WAK64A4"
+==
+||
+&&
+assert
+int 1
+return
+main_l7:
+txna ApplicationArgs 0
+byte "leaky_refund"
+==
+bnz main_l15
+txna ApplicationArgs 0
+byte "ready"
+==
+bnz main_l14
+txna ApplicationArgs 0
+byte "leaky_claim"
+==
+bnz main_l13
+txna ApplicationArgs 0
+byte "punish_refund"
+==
+bnz main_l12
+err
+main_l12:
+global LatestTimestamp
+byte "t1"
+app_global_get
+>=
+txn Sender
+byte "JCGNB4PJBLBMJIJQHOWNLXJKGUQDLNOTSWOEZMXVG7F3RG23NYR2DOEH4U"
+==
+&&
+assert
+byte "JCGNB4PJBLBMJIJQHOWNLXJKGUQDLNOTSWOEZMXVG7F3RG23NYR2DOEH4U"
+callsub closeAlgoTo_0
+int 1
+return
+main_l13:
+txn Sender
+byte "QIK2JTH3J57PU7WLYONAWC7VBLXRNYRRJZJQZ5LXKRZKPEWIXB2WAK64A4"
+==
+byte "gjallarbro"
+txn Note
+byte "7345435ccb7fe7e91d7b6f93457a5815f6fe6c1315a6750d9e2318981b68e081"
+ed25519verify
+&&
+global LatestTimestamp
+byte "t0"
+app_global_get
+>=
+byte "ready"
+app_global_get
+int 1
+==
+||
+&&
+global LatestTimestamp
+byte "t1"
+app_global_get
+<
+&&
+assert
+byte "QIK2JTH3J57PU7WLYONAWC7VBLXRNYRRJZJQZ5LXKRZKPEWIXB2WAK64A4"
+callsub closeAlgoTo_0
+int 1
+return
+main_l14:
+byte "ready"
+app_global_get
+int 0
+==
+global LatestTimestamp
+byte "t0"
+app_global_get
+<
+&&
+txn Sender
+byte "JCGNB4PJBLBMJIJQHOWNLXJKGUQDLNOTSWOEZMXVG7F3RG23NYR2DOEH4U"
+==
+&&
+assert
+byte "ready"
+int 1
+app_global_put
+int 1
+return
+main_l15:
+txn Sender
+byte "JCGNB4PJBLBMJIJQHOWNLXJKGUQDLNOTSWOEZMXVG7F3RG23NYR2DOEH4U"
+==
+byte "gjallarbro"
+txn Note
+byte "7345435ccb7fe7e91d7b6f93457a5815f6fe6c1315a6750d9e2318981b68e081"
+ed25519verify
+&&
+global LatestTimestamp
+byte "t0"
+app_global_get
+<
+&&
+assert
+byte "JCGNB4PJBLBMJIJQHOWNLXJKGUQDLNOTSWOEZMXVG7F3RG23NYR2DOEH4U"
+callsub closeAlgoTo_0
+int 1
+return
+main_l16:
+byte "t0"
+txna ApplicationArgs 0
+btoi
+app_global_put
+byte "t1"
+txna ApplicationArgs 1
+btoi
+app_global_put
+byte "ready"
+int 0
+app_global_put
+global LatestTimestamp
+txna ApplicationArgs 0
+btoi
+<
+txna ApplicationArgs 0
+btoi
+txna ApplicationArgs 1
+btoi
+<
+&&
+assert
+int 1
+return
+
+// closeAlgoTo
+closeAlgoTo_0:
+store 0
+itxn_begin
+int pay
+itxn_field TypeEnum
+load 0
+itxn_field CloseRemainderTo
+itxn_submit
+retsub
