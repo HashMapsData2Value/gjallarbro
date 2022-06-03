@@ -11,4 +11,5 @@ bed=$pub
 
 hash=$(../venv/bin/python3 algorand/main.py generate -c algo_ed25519 -aaa $aaa -aed $aed -baa $baa -bed $bed)
 Rs=$(../venv/bin/python3 monero/main.py signature -p $pub -s $sec -H $hash)
-echo $Rs
+
+echo $Rs > algorand/contracts/algo_ed25519/tests/rs.txt

@@ -40,7 +40,7 @@ def approval():
         Assert(
             And(
                 Txn.sender() == Tmpl.Bytes("TMPL_ALICE_ALGO_ADDRESS"),
-                Substring(Txn.note(), Int(0), Int(31)) == Bytes("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+#                Substring(Txn.note(), Int(0), Int(31)) == Bytes("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
                 Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_ALICE_PARTIAL_PK")),
                 Global.latest_timestamp() < App.globalGet(t0),
             )
@@ -65,7 +65,7 @@ def approval():
         Assert(
             And(
                 Txn.sender() == Tmpl.Bytes("TMPL_BOB_ALGO_ADDRESS"),
-                Substring(Txn.note(), Int(0), Int(31)) == Bytes("base16", "0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+#                Substring(Txn.note(), Int(0), Int(31)) == Bytes("base16", "0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
                 Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_BOB_PARTIAL_PK")),
                 Or(
                     Global.latest_timestamp() >= App.globalGet(t0),

@@ -10,7 +10,8 @@ def get_signature(private_key, public_key, program_hash):
     sec = bytes.fromhex(private_key)
     pub = bytes.fromhex(public_key)
     s = scalar_add(r, scalar_mult(reduce32(nacl.bindings.crypto_hash_sha512(R + pub + msg)), sec))
-
+    assert scalar_to_point(s) == points_add(R, scalar_mult_point(reduce32(nacl.bindings.crypto_hash_sha512(R + pub + msg)), pub))
+    
     return R+s
 
 def get_new_keys():
@@ -34,7 +35,7 @@ if __name__ == '__main__':
 
     if args.command == "signature":
         Rs = get_signature(private_key = args.private, public_key=args.public, program_hash=args.hash)
-        print(Rs)
+        print(Rs.hex())
 
     if args.command == "keys":
         private_spend, public_spend = get_new_keys()

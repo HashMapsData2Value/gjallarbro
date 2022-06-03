@@ -4,6 +4,9 @@ alice_addr=$(goal account list | awk "NR==1"{print} |  awk '{print $2}')
 bob_addr=$(goal account list | awk "NR==2"{print} |  awk '{print $2}')
 kim_addr=$(goal account list | awk "NR==3"{print} |  awk '{print $2}')
 
+#signature='XfffffffffffffffffffffffffffffffK\x0b\xb1\xf6\xa7\x01=\xed[t;;9\x0e;\xbd\x83\x9e\xe4\xb2\x84\xaf\x1a\xea\x94\xac\x81"Z\xdd\x8d\x0c'
+signature=$(cat rs.txt)
+
 algo_amnt=50003000 #needs to cover Bob's ideally 2 tx fees but potentially 3 tx fees 
 
 deploy_app(){
@@ -11,7 +14,7 @@ deploy_app(){
     local t0=`expr $NOW + 30`
     local t1=`expr $t0 + 30`
 
-    goal app create --creator $alice_addr --approval-prog /data/build/approval.teal --clear-prog /data/build/clear.teal --global-byteslices 0 --global-ints 2 --local-byteslices 0 --local-ints 0 --app-arg "int:$t0" --app-arg "int:$t1" > deploy_app.tx_output
+    goal app create --creator $alice_addr --approval-prog /data/build/approval.teal --clear-prog /data/build/clear.teal --global-byteslices 0 --global-ints 3 --local-byteslices 0 --local-ints 0 --app-arg "int:$t0" --app-arg "int:$t1" > deploy_app.tx_output
 }
 
 fund_app(){
