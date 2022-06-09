@@ -1,13 +1,10 @@
+from errno import EDEADLK
 from pyteal import *
 
 
 def approval():
     # globals
-    alice_algo_address = Bytes("a_addr")  # byteslice
-    alice_partial_pk = Bytes("a_ppk")  # byteslice
     alice_ready = Bytes("ready")  # byteslice
-    bob_algo_address = Bytes("b_addr")  # byteslice
-    bob_partial_pk = Bytes("b_ppk")  # byteslice
     t0 = Bytes("t0")  # uint64
     t1 = Bytes("t1")  # uint64
 
@@ -24,13 +21,9 @@ def approval():
             InnerTxnBuilder.Submit(),
         )
 
-    on_create_t0 = Btoi(Txn.application_args[4])
-    on_create_t1 = Btoi(Txn.application_args[5])
+    on_create_t0 = Btoi(Txn.application_args[0])
+    on_create_t1 = Btoi(Txn.application_args[1])
     on_create = Seq(
-        App.globalPut(alice_algo_address, Txn.application_args[0]),
-        App.globalPut(alice_partial_pk, Txn.application_args[1]),
-        App.globalPut(bob_algo_address, Txn.application_args[2]),
-        App.globalPut(bob_partial_pk, Txn.application_args[3]),
         App.globalPut(t0, on_create_t0),
         App.globalPut(t1, on_create_t1),
         App.globalPut(alice_ready, Int(0)),
@@ -46,12 +39,15 @@ def approval():
     on_leaky_refund = Seq(
         Assert(
             And(
-                Txn.sender() == App.globalGet(alice_algo_address),
-                Txn.note() == App.globalGet(alice_partial_pk),  # REPLACE with NEW OPCODE
+                Txn.sender() == Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS"),
+#                Txn.application_args[1] == Bytes("5866666666666666666666666666666666666666666666666666666666666666"),
+                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("5866666666666666666666666666666666666666666666666666666666666666"),
+#                Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_ALICE_PARTIAL_PK")),
+#                Btoi(Txn.application_args[1]) == Int(1),  # REPLACE with ED25519VERIFY
                 Global.latest_timestamp() < App.globalGet(t0),
             )
         ),
-        closeAlgoTo(App.globalGet(alice_algo_address)),
+        closeAlgoTo(Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS")),
         Approve(),
     )
 
@@ -60,7 +56,7 @@ def approval():
             And(
                 App.globalGet(alice_ready) == Int(0),
                 Global.latest_timestamp() < App.globalGet(t0),
-                Txn.sender() == App.globalGet(alice_algo_address),
+                Txn.sender() == Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS"),
             ),
         ),
         App.globalPut(alice_ready, Int(1)),
@@ -70,8 +66,10 @@ def approval():
     on_leaky_claim = Seq(
         Assert(
             And(
-                Txn.sender() == App.globalGet(bob_algo_address),
-                Txn.note() == App.globalGet(bob_partial_pk),  # REPLACE with NEW OPCODE
+                Txn.sender() == Tmpl.Addr("TMPL_BOB_ALGO_ADDRESS"),
+                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("base16", "0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+#                Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_BOB_PARTIAL_PK")),
+#                Btoi(Txn.application_args[1]) == Int(1),  # REPLACE with ED25519VERIFY
                 Or(
                     Global.latest_timestamp() >= App.globalGet(t0),
                     App.globalGet(alice_ready) == Int(1),
@@ -79,7 +77,7 @@ def approval():
                 Global.latest_timestamp() < App.globalGet(t1),
             )
         ),
-        closeAlgoTo(App.globalGet(bob_algo_address)),
+        closeAlgoTo(Tmpl.Addr("TMPL_BOB_ALGO_ADDRESS")),
         Approve(),
     )
 
@@ -87,10 +85,10 @@ def approval():
         Assert(
             And(
                 Global.latest_timestamp() >= App.globalGet(t1),
-                Txn.sender() == App.globalGet(alice_algo_address),
+                Txn.sender() == Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS"),
             ),
         ),
-        closeAlgoTo(App.globalGet(alice_algo_address)),
+        closeAlgoTo(Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS")),
         Approve(),
     )
 
@@ -99,8 +97,8 @@ def approval():
             And(
                 Balance(Global.current_application_address()) == Int(0),
                 Or(
-                    Txn.sender() == App.globalGet(alice_algo_address),
-                    Txn.sender() == App.globalGet(bob_algo_address),
+                    Txn.sender() == Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS"),
+                    Txn.sender() == Tmpl.Addr("TMPL_BOB_ALGO_ADDRESS"),
                 ),
             ),
         ),
