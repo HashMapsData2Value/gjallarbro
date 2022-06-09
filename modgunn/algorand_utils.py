@@ -75,6 +75,25 @@ def generate_contract(contract, input_approval, input_clear = {}):
 def get_program_hash(src):
     return algod_client.compile(src)['hash']
 
+def execute_transaction(txn, private_Key):
+    signed_txn = txn.sign(private_Key)
+
+    txid = algod_client.send_transaction(signed_txn)
+
+    result = transaction.wait_for_confirmation(algod_client, txid, 4)
+    return result
+
+def execute_group_transaction(txns, private_key):
+    stxns = []
+    for txn in txns:
+        stxns.append(txn.sign(private_key))
+
+    tx_id = algod_client.send_transactions(stxns)
+
+    result = transaction.wait_for_confirmation(algod_client, tx_id, 10)
+    return result
+
+
 def deploy_contract( # https://github.com/algorand-devrel/demo-avm1.1/blob/master/demos/utils/deploy.py
     addr: str, pk: str, approval_teal, clear_teal, timestamps: list,
 ) -> int:
@@ -105,14 +124,8 @@ def deploy_contract( # https://github.com/algorand-devrel/demo-avm1.1/blob/maste
         app_args=timestamps
     )
 
-    # Sign it
-    signed_txn = create_txn.sign(pk)
+    result = execute_transaction(create_txn, pk)
 
-    # Ship it
-    txid = algod_client.send_transaction(signed_txn)
-
-    # Wait for the result so we can return the app id
-    result = transaction.wait_for_confirmation(algod_client, txid, 4)
 
     #print(result)
     return result["application-index"]
@@ -124,11 +137,7 @@ def fund_contract(app_id, account, amount):
 
     create_txn = transaction.PaymentTxn(account[0], sp, app_addr, amount)
 
-    signed_txn = create_txn.sign(account[1])
-
-    txid = algod_client.send_transaction(signed_txn)
-
-    result = transaction.wait_for_confirmation(algod_client, txid, 4)
+    result = execute_transaction(create_txn, account[1])
     return result
 
 
@@ -144,29 +153,74 @@ def alice_set_ready(app_id, account):
         on_complete=transaction.OnComplete.NoOpOC,       
     )
 
-    signed_txn = create_txn.sign(account[1])
-    txid = algod_client.send_transaction(signed_txn)
-
-    result = transaction.wait_for_confirmation(algod_client, txid, 4)
+    result = execute_transaction(create_txn, account[1])
     return result
 
 def bob_leaky_claim(app_id, account, input):
 
     sp = algod_client.suggested_params()
 
-    create_txn = transaction.ApplicationCallTxn(
+    leaky_claim_txn = transaction.ApplicationCallTxn(
         sender=account[0],
         sp=sp,
         index=app_id,
-        app_args=[b"leaky_claim", input],
+        app_args=[b"leaky_claim"],
+        note=input,
         on_complete=transaction.OnComplete.NoOpOC,       
     )
 
-    signed_txn = create_txn.sign(account[1])
-    txid = algod_client.send_transaction(signed_txn)
+    add_700_txn_1 = transaction.ApplicationCallTxn(
+        sender=account[0],
+        sp=sp,
+        index=app_id,
+        app_args=[b"+700"],
+        note=input,
+        on_complete=transaction.OnComplete.NoOpOC,       
+    )
 
-    result = transaction.wait_for_confirmation(algod_client, txid, 4)
+    add_700_txn_2 = transaction.ApplicationCallTxn(
+        sender=account[0],
+        sp=sp,
+        index=app_id,
+        app_args=[b"+700"],
+        note=input,
+        on_complete=transaction.OnComplete.NoOpOC,       
+    )
+
+    groupTxnId = transaction.calculate_group_id([leaky_claim_txn, add_700_txn_1, add_700_txn_2])
+
+    leaky_claim_txn.group = groupTxnId
+    add_700_txn_1.group = groupTxnId
+    add_700_txn_2.group = groupTxnId
+
+    result = execute_group_transaction([leaky_claim_txn, add_700_txn_1, add_700_txn_2], account[1])
     return result
+
+# def bob_leaky_claim(app_id, account, input):
+
+#     sp = algod_client.suggested_params()
+
+#     create_txn = transaction.ApplicationCallTxn(
+#         sender=account[0],
+#         sp=sp,
+#         index=app_id,
+#         app_args=[b"leaky_claim"],
+#         note=input,
+#         on_complete=transaction.OnComplete.NoOpOC,       
+#     )
+
+#     signed_txn = create_txn.sign(account[1])
+
+#     drr = transaction.create_dryrun(algod_client, [signed_txn])
+
+#     filename = "dryrun.msgp"
+#     with open(filename, "wb") as f:
+#         f.write(base64.b64decode(encoding.msgpack_encode(drr)))
+
+#     txid = algod_client.send_transaction(signed_txn)
+
+#     result = transaction.wait_for_confirmation(algod_client, txid, 4)
+#     return result
 
 def either_deletes_app(app_id, account):
     
@@ -178,8 +232,5 @@ def either_deletes_app(app_id, account):
         index=app_id
     )
     
-    signed_txn = create_txn.sign(account[1])
-    txid = algod_client.send_transaction(signed_txn)
-
-    result = transaction.wait_for_confirmation(algod_client, txid, 4)
+    result = execute_transaction(create_txn, account[1])
     return result

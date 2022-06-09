@@ -40,10 +40,8 @@ def approval():
         Assert(
             And(
                 Txn.sender() == Tmpl.Addr("TMPL_ALICE_ALGO_ADDRESS"),
-#                Txn.application_args[1] == Bytes("5866666666666666666666666666666666666666666666666666666666666666"),
-                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("5866666666666666666666666666666666666666666666666666666666666666"),
-#                Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_ALICE_PARTIAL_PK")),
-#                Btoi(Txn.application_args[1]) == Int(1),  # REPLACE with ED25519VERIFY
+#                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("5866666666666666666666666666666666666666666666666666666666666666"),
+                Ed25519Verify(Bytes('gjallarbro'), Txn.application_args[1], Tmpl.Bytes("TMPL_ALICE_PARTIAL_PK")),
                 Global.latest_timestamp() < App.globalGet(t0),
             )
         ),
@@ -67,9 +65,8 @@ def approval():
         Assert(
             And(
                 Txn.sender() == Tmpl.Addr("TMPL_BOB_ALGO_ADDRESS"),
-                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("base16", "0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
-#                Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_BOB_PARTIAL_PK")),
-#                Btoi(Txn.application_args[1]) == Int(1),  # REPLACE with ED25519VERIFY
+#                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("base16", "0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+                Ed25519Verify(Bytes('gjallarbro'), Txn.note(), Tmpl.Bytes("TMPL_BOB_PARTIAL_PK")),
                 Or(
                     Global.latest_timestamp() >= App.globalGet(t0),
                     App.globalGet(alice_ready) == Int(1),
@@ -92,6 +89,10 @@ def approval():
         Approve(),
     )
 
+    on_plus_700 = Seq(
+        Approve(),
+    )
+
     on_delete = Seq(
         Assert(
             And(
@@ -111,6 +112,7 @@ def approval():
         [on_call_method == Bytes("ready"), on_ready],
         [on_call_method == Bytes("leaky_claim"), on_leaky_claim],
         [on_call_method == Bytes("punish_refund"), on_punish_refund],
+        [on_call_method == Bytes("+700"), on_plus_700],
     )
 
     program = Cond(

@@ -136,7 +136,7 @@ def get_signature(monero_keys, programhash):
     R = scalar_to_point(r)
     challenge = reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg))
     s = scalar_add(r, scalar_mult(challenge, c))
-    signature = little_to_big(R) + little_to_big(s)
+    signature = R + s
     return signature
 
 

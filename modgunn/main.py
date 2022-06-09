@@ -23,14 +23,14 @@ bob_monero_keys = mu.generate_monero_keys()
 
 approval_teal, clear_teal = au.generate_contract(importlib.import_module('contract'), {
     "TMPL_ALICE_ALGO_ADDRESS": ali_algorand_account[0],
-    "TMPL_ALICE_PARTIAL_PK": ali_monero_keys[0][1],
+    "TMPL_ALICE_PARTIAL_PK": "0x{}".format(ali_monero_keys[0][1].hex()),
     "TMPL_BOB_ALGO_ADDRESS": bob_algorand_account[0],
-    "TMPL_BOB_PARTIAL_PK": bob_monero_keys[0][1],
+    "TMPL_BOB_PARTIAL_PK": "0x{}".format(bob_monero_keys[0][1].hex()),
 })
 
 program_hash = au.get_program_hash(approval_teal)
 signature = u.get_signature(bob_monero_keys, bytes(program_hash, "utf-8"))
-print(signature)
+print(signature.hex())
 
 t0 = int(time.time()) + 60
 t1 = t0 + 60
@@ -55,8 +55,9 @@ print(au.alice_set_ready(app_index, ali_algorand_account))
 
 # Bob leakily claims the funds to his account
 
-
-print(au.bob_leaky_claim(app_index, bob_algorand_account, signature.hex()))
+input = signature.hex()
+print(input)
+print(au.bob_leaky_claim(app_index, bob_algorand_account, input))
 
 # Alice queries Algorand history (for signature input)
 # -> calculates Bob's partial key and computes combined private key
