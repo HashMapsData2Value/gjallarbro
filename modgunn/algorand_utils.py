@@ -130,8 +130,6 @@ def deploy_contract( # https://github.com/algorand-devrel/demo-avm1.1/blob/maste
 
     result = execute_transaction(create_txn, pk)
 
-
-    #print(result)
     return result["application-index"]
 
 def fund_contract(app_id, account, amount):
@@ -189,10 +187,6 @@ def recover_counterparty_private_key(program_hash, counterparty_algo_account, si
 
     counterparty_private_key = u.get_private_key_from_signature(signature, msg, counterparty_monero_public_key)
     return counterparty_private_key
-
-    
-
-
 
 
 def bob_leaky_claim(app_id, account, input):

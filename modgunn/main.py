@@ -18,7 +18,7 @@ eve_algorand_account = algorand_accounts[2]
 alice_monero_keys = mu.generate_monero_keys() # [0][0] is private spend, [0][1] is public spend, [1][0] is private view, [1][1] is public view
 bob_monero_keys = mu.generate_monero_keys()
 
-alice_trades_algos = 500
+alice_trades_algos = int(500 * 1e6)
 bob_trades_xmr = 1.1
 
 t0 = int(time.time()) + 70
@@ -65,7 +65,7 @@ SHARED_OR_PUBLIC_INFORMATION['app_id'] = app_id
 
 
 # Alice funds the smart contract
-au.fund_contract(app_id, alice_algorand_account, int(500 * 1e6))
+au.fund_contract(app_id, alice_algorand_account, alice_trades_algos)
 
 # Bob sees the contract and seeds combined account
 """INSERT ALGORAND QUERY HERE"""
@@ -93,11 +93,13 @@ assert recovered_private_key == bob_monero_keys[0][0]
 """INSERT MONERO STUFF HERE"""
 # TODO: Alice reconstructs combined private key and has control over the combined account.
 combined_private_spend = mu.get_combined_private_key(alice_monero_keys[0][0], recovered_private_key)
-print(combined_private_spend)
+assert u.points_add(alice_monero_keys[0][1], bob_monero_keys[0][1]) == u.get_public_from_secret(combined_private_spend)
 
-# Delete Contract...
+# Delete Contract
 
 au.either_deletes_app(app_id, alice_algorand_account)
 
-bob_after = au.get_balance(bob_algorand_account)
-alice_after = au.get_balance(alice_algorand_account)
+bob_algos_delta =  int(bob_before) + int(au.get_balance(bob_algorand_account))
+alice_algos_delta = int(au.get_balance(alice_algorand_account)) - int(alice_before)
+assert bob_algos_delta >= alice_trades_algos - int(4*0.001*1e6)
+assert alice_algos_delta <= -alice_trades_algos - int(4*0.001*1e6)
