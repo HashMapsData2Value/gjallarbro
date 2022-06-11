@@ -61,5 +61,8 @@ def build_monero_address():
     checksum = u.hash256(data)[:4]
     pass
 
+def get_combined_private_key(partial_private_spend_a, partial_private_spend_b):
+    return u.scalar_add(partial_private_spend_a, partial_private_spend_b)
+
 if __name__ == '__main__':
     test_keys()

@@ -11,7 +11,7 @@ from algosdk.kmd import KMDClient
 from algosdk.v2client import algod, indexer
 from algosdk.future import transaction
 
-import utils
+import utils as u
 
 algod_client = algod.AlgodClient("a" * 64, "http://localhost:4001")
 algo_indexer = indexer.IndexerClient("a" * 64, "http://localhost:8980")
@@ -166,11 +166,32 @@ def get_signature(algorand_account, monero_keys, program_hash):
     + encoding.decode_address(program_hash)
     + encoding.decode_address(algorand_account[0]))
         
-    signature = utils.get_signature(monero_keys, msg)
+    signature = u.get_signature(monero_keys, msg)
     return signature
+
 
 def get_balance(algorand_account):
     return algod_client.account_info(algorand_account[0]).get("amount")
+
+
+def get_counterparty_signature(app_id):
+    app_addr = get_application_address(app_id)
+    txs = algo_indexer.search_transactions_by_address(app_addr)
+    _, signature = txs['transactions'][0]['application-transaction']['application-args']
+    return base64.b64decode(signature)
+
+
+def recover_counterparty_private_key(program_hash, counterparty_algo_account, signature, counterparty_monero_public_key):
+    
+    msg = (b"ProgData"
+    + encoding.decode_address(program_hash)
+    + encoding.decode_address(counterparty_algo_account))
+
+    counterparty_private_key = u.get_private_key_from_signature(signature, msg, counterparty_monero_public_key)
+    return counterparty_private_key
+
+    
+
 
 
 

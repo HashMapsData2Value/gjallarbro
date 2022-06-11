@@ -53,8 +53,12 @@ def hash256(data):
 def get_public_from_secret(sk):
     return scalar_to_point(sk)
 
-
-
+def get_private_key_from_signature(signature, msg, C):
+    s = signature[32:]
+    r = itb(1)
+    R = scalar_to_point(r)
+    c_extracted = scalar_division(scalar_sub(s, r), reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg)))
+    return c_extracted
 
 ####
 def test_extract_private_key_own_signing():
