@@ -11,6 +11,8 @@ from algosdk.kmd import KMDClient
 from algosdk.v2client import algod, indexer
 from algosdk.future import transaction
 
+import utils
+
 algod_client = algod.AlgodClient("a" * 64, "http://localhost:4001")
 algo_indexer = indexer.IndexerClient("a" * 64, "http://localhost:8980")
 
@@ -50,25 +52,28 @@ def get_Algorand_accounts(): #h ttps://github.com/algorand-devrel/decipher-drop
 
 
 def application(pyteal_code):
-    return pyteal.compileTeal(pyteal_code, mode=pyteal.Mode.Application, version=pyteal.MAX_TEAL_VERSION)
-
-def populate_teal(source, input):
-    for key in input:
-        source = source.replace(key, "{}".format(input[key]))
-    return source
+    return pyteal.compileTeal(pyteal_code, mode=pyteal.Mode.Application, version=pyteal.MAX_TEAL_VERSION, assembleConstants=True)
 
 def generate_contract(contract, input_approval, input_clear = {}):
     if not os.path.exists("build"):
         os.makedirs("build")
 
-    a = populate_teal(application(contract.approval()), input_approval)
-    c = populate_teal(application(contract.clear()), input_clear)
+    a = application(contract.approval(
+        alice_addr=input_approval["alice_addr"], 
+        alice_partial_pk=input_approval["alice_partial_pk"],
+        bob_addr=input_approval["bob_addr"], 
+        bob_partial_pk=input_approval["bob_partial_pk"],
+        t0_timestamp=input_approval["t0_timestamp"], 
+        t1_timestamp=input_approval["t1_timestamp"])
+        )
+
+    c = application(contract.clear())
+
     with open(os.path.join("build", "approval.teal"), "w") as h:
-        a = populate_teal(application(contract.approval()), input_approval)
         h.write(a)
 
     with open(os.path.join("build", "clear.teal"), "w") as h:
-        h.write(populate_teal(application(contract.clear()), input_clear))
+        h.write(c)
 
     return a, c
 
@@ -95,7 +100,7 @@ def execute_group_transaction(txns, private_key):
 
 
 def deploy_contract( # https://github.com/algorand-devrel/demo-avm1.1/blob/master/demos/utils/deploy.py
-    addr: str, pk: str, approval_teal, clear_teal, timestamps: list,
+    addr: str, pk: str, approval_teal, clear_teal,
 ) -> int:
     # Get suggested params from network
     sp = algod_client.suggested_params()
@@ -121,8 +126,7 @@ def deploy_contract( # https://github.com/algorand-devrel/demo-avm1.1/blob/maste
         clear_bytes,
         g_schema,
         l_schema,
-        app_args=timestamps
-    )
+     )
 
     result = execute_transaction(create_txn, pk)
 
@@ -156,6 +160,20 @@ def alice_set_ready(app_id, account):
     result = execute_transaction(create_txn, account[1])
     return result
 
+
+def get_signature(algorand_account, monero_keys, program_hash):
+    msg = (b"ProgData"
+    + encoding.decode_address(program_hash)
+    + encoding.decode_address(algorand_account[0]))
+        
+    signature = utils.get_signature(monero_keys, msg)
+    return signature
+
+def get_balance(algorand_account):
+    return algod_client.account_info(algorand_account[0]).get("amount")
+
+
+
 def bob_leaky_claim(app_id, account, input):
 
     sp = algod_client.suggested_params()
@@ -164,17 +182,15 @@ def bob_leaky_claim(app_id, account, input):
         sender=account[0],
         sp=sp,
         index=app_id,
-        app_args=[b"leaky_claim"],
-        note=input,
-        on_complete=transaction.OnComplete.NoOpOC,       
+        app_args=[b"leaky_claim", input],
+        on_complete=transaction.OnComplete.NoOpOC,
     )
 
     add_700_txn_1 = transaction.ApplicationCallTxn(
         sender=account[0],
         sp=sp,
         index=app_id,
-        app_args=[b"+700"],
-        note=input,
+        app_args=[b"+700", "1"],
         on_complete=transaction.OnComplete.NoOpOC,       
     )
 
@@ -182,8 +198,7 @@ def bob_leaky_claim(app_id, account, input):
         sender=account[0],
         sp=sp,
         index=app_id,
-        app_args=[b"+700"],
-        note=input,
+        app_args=[b"+700", "2"],
         on_complete=transaction.OnComplete.NoOpOC,       
     )
 

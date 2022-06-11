@@ -20,27 +20,27 @@ bob_monero_keys = mu.generate_monero_keys()
 
 # Build Pyteal & Deploy contract to Algorand
 
+t0 = int(time.time()) + 70
+t1 = t0 + 60
 
 approval_teal, clear_teal = au.generate_contract(importlib.import_module('contract'), {
-    "TMPL_ALICE_ALGO_ADDRESS": ali_algorand_account[0],
-    "TMPL_ALICE_PARTIAL_PK": "0x{}".format(ali_monero_keys[0][1].hex()),
-    "TMPL_BOB_ALGO_ADDRESS": bob_algorand_account[0],
-    "TMPL_BOB_PARTIAL_PK": "0x{}".format(bob_monero_keys[0][1].hex()),
+    "alice_addr": ali_algorand_account[0],
+    "alice_partial_pk": "0x{}".format(ali_monero_keys[0][1].hex()),
+    "bob_addr": bob_algorand_account[0],
+    "bob_partial_pk": "0x{}".format(bob_monero_keys[0][1].hex()),
+    "t0_timestamp": t0,
+    "t1_timestamp": t1,
 })
 
 program_hash = au.get_program_hash(approval_teal)
-signature = u.get_signature(bob_monero_keys, bytes(program_hash, "utf-8"))
-print(signature.hex())
 
-t0 = int(time.time()) + 60
-t1 = t0 + 60
-
-app_index = au.deploy_contract(ali_algorand_account[0], ali_algorand_account[1], approval_teal, clear_teal, [t0, t1])
+app_index = au.deploy_contract(ali_algorand_account[0], ali_algorand_account[1], approval_teal, clear_teal)
 
 
+print("Before Bob has:", au.get_balance(bob_algorand_account))
 
 # Alice funds the smart contract
-print(au.fund_contract(app_index, ali_algorand_account, int(500 * 1e6)))
+au.fund_contract(app_index, ali_algorand_account, int(500 * 1e6))
 
 # Bob sees the contract and seeds combined account
 """INSERT ALGORAND QUERY HERE"""
@@ -51,13 +51,13 @@ print(au.fund_contract(app_index, ali_algorand_account, int(500 * 1e6)))
 
 """INSERT MONERO STUFF HERE"""
 
-print(au.alice_set_ready(app_index, ali_algorand_account))
+au.alice_set_ready(app_index, ali_algorand_account)
 
 # Bob leakily claims the funds to his account
 
-input = signature.hex()
-print(input)
-print(au.bob_leaky_claim(app_index, bob_algorand_account, input))
+signature = au.get_signature(bob_algorand_account, bob_monero_keys, program_hash)
+
+print(au.bob_leaky_claim(app_index, bob_algorand_account, signature))
 
 # Alice queries Algorand history (for signature input)
 # -> calculates Bob's partial key and computes combined private key
@@ -66,4 +66,6 @@ print(au.bob_leaky_claim(app_index, bob_algorand_account, input))
 
 # Delete Contract
 
-print(au.either_deletes_app(app_index, ali_algorand_account))
+au.either_deletes_app(app_index, ali_algorand_account)
+
+print("After Bob has:", au.get_balance(bob_algorand_account))

@@ -115,7 +115,7 @@ def test_extract_private_key_import_verify():
     c = keys[0][0]
     C = keys[0][1]
     
-    msg = b"ProgData" + b"programhash" + b"data_A"
+    msg = (b"ProgData" + b"programhash" + b"data_A")
     r = itb(1)
     R = scalar_to_point(r)
     challenge = reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg))
@@ -126,12 +126,13 @@ def test_extract_private_key_import_verify():
     assert msg == nacl.bindings.crypto_sign_open(smessage, C)
 
 
-def get_signature(monero_keys, programhash):
+def get_signature(monero_keys, msg):
 
     c = monero_keys[0][0]
     C = monero_keys[0][1]
 
-    msg = b"ProgData" + programhash + b"gjallarbro"
+
+    print(msg)
     r = itb(1)
     R = scalar_to_point(r)
     challenge = reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg))
