@@ -131,8 +131,6 @@ def get_signature(monero_keys, msg):
     c = monero_keys[0][0]
     C = monero_keys[0][1]
 
-
-    print(msg)
     r = itb(1)
     R = scalar_to_point(r)
     challenge = reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg))

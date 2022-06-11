@@ -57,7 +57,7 @@ au.alice_set_ready(app_index, ali_algorand_account)
 
 signature = au.get_signature(bob_algorand_account, bob_monero_keys, program_hash)
 
-print(au.bob_leaky_claim(app_index, bob_algorand_account, signature))
+au.bob_leaky_claim(app_index, bob_algorand_account, signature)
 
 # Alice queries Algorand history (for signature input)
 # -> calculates Bob's partial key and computes combined private key

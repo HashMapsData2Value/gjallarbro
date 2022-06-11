@@ -41,7 +41,7 @@ def approval(alice_addr, alice_partial_pk, bob_addr, bob_partial_pk, t0_timestam
         Assert(
             And(
                 Txn.sender() == alice_algo_addr,
-#                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("5866666666666666666666666666666666666666666666666666666666666666"),
+                Extract(Txn.application_args[1], Int(0), Int(32)) == Bytes("Xfffffffffffffffffffffffffffffff"),
                 Ed25519Verify(alice_algo_addr, Txn.application_args[1], alice_xmr_pk),
                 Global.latest_timestamp() < t0,
             )
@@ -66,7 +66,7 @@ def approval(alice_addr, alice_partial_pk, bob_addr, bob_partial_pk, t0_timestam
         Assert(
             And(
                 Txn.sender() == bob_algo_addr,
-#                Substring(Txn.application_args[1], Int(0), Int(31)) == Bytes("base16", "0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
+                Extract(Txn.application_args[1], Int(0), Int(32)) == Bytes("Xfffffffffffffffffffffffffffffff"),
                 Ed25519Verify(bob_algo_addr, Txn.application_args[1], bob_xmr_pk),
                 Or(
                     Global.latest_timestamp() >= t0,
