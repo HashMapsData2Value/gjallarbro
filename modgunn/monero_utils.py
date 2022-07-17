@@ -1,5 +1,5 @@
 from monero.wallet import Wallet
-from monero.backends.jsonrpc import JSONRPCWallet
+from monero.daemon import Daemon
 
 import secrets
 
@@ -18,11 +18,54 @@ def generate_monero_keys():
 
     return [[spend_sk, spend_pk], [view_sk, view_pk]]
 
+def generate_from_keys(wallet_filename, address, spendkey, viewkey, pw):
+    """ Example from https://www.getmonero.org/resources/developer-guides/wallet-rpc.html#generate_from_keys
+    curl -X POST http://127.0.0.1:18082/json_rpc -d '
+        {
+            "jsonrpc":"2.0",
+            "id":"0",
+            "method":"generate_from_keys",
+            "params"= {
+                "restore_height":0,
+                "filename":"wallet_name",
+                "address":"42gt8cXJSHAL4up8XoZh7fikVuswDU7itAoaCjSQyo6fFoeTQpAcAwrQ1cs8KvFynLFSBdabhmk7HEe3HS7UsAz4LYnVPYM",
+                "spendkey":"11d3fd247672c4cb29b6e38791dcf07629cd2d68d868f0b78811ce584a6b0d01",
+                "viewkey":"97cf64f2cd6c930242e9bed5f14f8f16a33047229aca3eababf4af7e8d113209",
+                "password":"pass",
+                "autosave_current":true
+            }
+        },' -H 'Content-Type: application/json'
+    """
+    
+    w1 = Wallet()
+    result = w1.raw_request(method="generate_from_keys", params={
+            "restore_height": 0,
+            "filename":wallet_filename,
+            "address":address,
+            "spendkey":spendkey,
+            "viewkey":viewkey,
+            "password":pw,
+        })
+    
+    return result
+
+def get_combined_private_key(partial_private_spend_a, partial_private_spend_b):
+    return u.scalar_add(partial_private_spend_a, partial_private_spend_b)
+
+def build_monero_address(): 
+    
+    network_bytes = 53# 18 main chain, 53 test chain, 24 stage chain
+    data = (
+        bytearray([network_bytes])
+        + self._decoded[1:65]
+    )
+
+    checksum = u.hash256(data)[:4]
+    pass
 
 """
 Tests just to check that things work
 """
-
 
 def test_keys():
     """
@@ -40,29 +83,6 @@ def test_keys():
     #print('pub1 + pub2 = pub', points_add(keys1[1], keys2[1]).hex())
     #print('toPub(sec)  = pub', get_public_from_secret(scalar_add(keys1[0], keys2[0])).hex())
     assert u.points_add(keys1[1], keys2[1]) == u.get_public_from_secret(u.scalar_add(keys1[0], keys2[0]))
-
-
-#def generate_from_keys_rpc_test(...):
-    # use "generate_from_keys" Monero Wallet RPC call to generate from keys. 
-    #w1 = Wallet(JSONRPCWallet(port=28088))
-    #w2 = Wallet(JSONRPCWallet(port=38088))
-    #add pub spend and view keys together
-    #once partial private key leaked, generate_from_keys
-
-
-def build_monero_address(): 
-    
-    network_bytes = 53# 18 main chain, 53 test chain, 24 stage chain
-    data = (
-        bytearray([network_bytes])
-        + self._decoded[1:65]
-    )
-
-    checksum = u.hash256(data)[:4]
-    pass
-
-def get_combined_private_key(partial_private_spend_a, partial_private_spend_b):
-    return u.scalar_add(partial_private_spend_a, partial_private_spend_b)
 
 if __name__ == '__main__':
     test_keys()

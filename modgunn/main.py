@@ -53,50 +53,51 @@ approval_teal, clear_teal = au.generate_contract(importlib.import_module('contra
 
 program_hash = au.get_program_hash(approval_teal)
 
-## Bob can also produce the same program_hash
-## TODO: BOB, ON HIS SIDE, COMPILES PROGRAM
+# Bob can also produce the same program_hash
+# TODO: BOB, ON HIS SIDE, COMPILES PROGRAM
 SHARED_OR_PUBLIC_INFORMATION['program_hash'] = program_hash
 
-## Alice deploys the contract 
+# Alice deploys the contract 
 app_id = au.deploy_contract(alice_algorand_account[0], alice_algorand_account[1], approval_teal, clear_teal)
 
-## TODO: BOB SCANS FOR APP_ID
+# TODO: ALGORAND QUERY: BOB SCANS FOR APP_ID
 SHARED_OR_PUBLIC_INFORMATION['app_id'] = app_id
 
+#TODO: ALGORAND QUERY: BOB SEES ALGORAND CONTRACT AND STARTS TO POLL IT
 
 # Alice funds the smart contract
 au.fund_contract(app_id, alice_algorand_account, alice_trades_algos)
 
-# Bob sees the contract and seeds combined account
-"""INSERT ALGORAND QUERY HERE"""
-"""INSERT MONERO STUFF HERE"""
+# Bob monitors contract for Alice funding it.
+#TODO: ALGORAND QUERY: BOB SEES ALICE FUNDING IT
+
+# Bob funds combined account.
+#TODO: MONERO ACTION: BOB SEEDS COMBINED ACCOUNT ON MONERO (SPEND KEY) ## monero wallet.sweep_all?
 
 # Alice queries Monero history (for combined view key)
-# -> flags as ready
+#TODO: MONERO QUERY: ALICE QUERIES COMBINED ACCOUNT ON MONERO (VIEW KEY)
 
-"""INSERT MONERO STUFF HERE"""
-
+# Alice sets ready
 au.alice_set_ready(app_id, alice_algorand_account)
 
 # Bob leakily claims the funds to his account
-
 signature = au.get_signature(bob_algorand_account, bob_monero_keys, program_hash)
-
 au.bob_leaky_claim(app_id, bob_algorand_account, signature)
 
-# Alice queries Algorand history (for signature input)
-# -> calculates Bob's partial key
+# Alice queries Algorand history (for signature input) and calculates Bob's partial key
 recovered_signature = au.get_counterparty_signature(app_id)
 recovered_private_key = au.recover_counterparty_private_key(program_hash, SHARED_OR_PUBLIC_INFORMATION['bob_algorand_address'], recovered_signature, SHARED_OR_PUBLIC_INFORMATION['bob_monero_pubspend'])
 assert recovered_private_key == bob_monero_keys[0][0]
 
-"""INSERT MONERO STUFF HERE"""
-# TODO: Alice reconstructs combined private key and has control over the combined account.
+# Alice reconstructs combined private key.
 combined_private_spend = mu.get_combined_private_key(alice_monero_keys[0][0], recovered_private_key)
 assert u.points_add(alice_monero_keys[0][1], bob_monero_keys[0][1]) == u.get_public_from_secret(combined_private_spend)
 
-# Delete Contract
+# TODO: MONERO ACTION: ALICE RECONSTRUCTS FULL MONERO ADDRESS AND KEYS IN WALLET
 
+
+
+# Delete Contract
 au.either_deletes_app(app_id, alice_algorand_account)
 
 bob_algos_delta =  int(bob_before) + int(au.get_balance(bob_algorand_account))
