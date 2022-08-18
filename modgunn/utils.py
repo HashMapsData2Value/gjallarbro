@@ -63,25 +63,6 @@ def get_private_key_from_signature(signature, msg, C):
     c_extracted = scalar_division(scalar_sub(s, r), reduce32(nacl.bindings.crypto_hash_sha512(R + C + msg)))
     return c_extracted
 
-
-###
-#https://blog.costan.ro/post/2020-07-18-generate-monero-address/
-def hex_to_bin(hex):
-    return ''.join(chr(b) for b in hex_to_bytes(hex))
-def hex_to_bytes(hex):
-    return map(lambda x: int(x, 16), split(hex))
-def split(hex):
-    return [hex[i*2:i*2+2] for i in range(32)]
-def keccak_sha3_version(bin):
-    import sha3
-    h = sha3.keccak_256()
-    h.update(bin)
-    return h.hexdigest()
-
-###
-
-
-
 ####
 def test_extract_private_key_own_signing():
     """
