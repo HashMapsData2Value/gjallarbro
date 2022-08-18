@@ -1,9 +1,6 @@
-from distutils.command import build
 from binascii import unhexlify
-from monero.wallet import Wallet
-from monero.daemon import Daemon
+from monero.backends.jsonrpc import JSONRPCWallet
 from monero.base58 import encode
-
 import secrets
 
 import utils as u
@@ -41,34 +38,16 @@ def generate_monero_keys(seed_hex=None, env="main"):
     return [[spend_sk, spend_pk], [view_sk, view_pk]], encode(address)
 
 def generate_from_keys(wallet_filename, address, spendkey, viewkey, pw):
-    """ Example from https://www.getmonero.org/resources/developer-guides/wallet-rpc.html#generate_from_keys
-    curl -X POST http://127.0.0.1:18082/json_rpc -d '
-        {
-            "jsonrpc":"2.0",
-            "id":"0",
-            "method":"generate_from_keys",
-            "params"= {
-                "restore_height":0,
-                "filename":"wallet_name",
-                "address":"42gt8cXJSHAL4up8XoZh7fikVuswDU7itAoaCjSQyo6fFoeTQpAcAwrQ1cs8KvFynLFSBdabhmk7HEe3HS7UsAz4LYnVPYM",
-                "spendkey":"11d3fd247672c4cb29b6e38791dcf07629cd2d68d868f0b78811ce584a6b0d01",
-                "viewkey":"97cf64f2cd6c930242e9bed5f14f8f16a33047229aca3eababf4af7e8d113209",
-                "password":"pass",
-                "autosave_current":true
-            }
-        },' -H 'Content-Type: application/json'
-    """
-    
-    w1 = Wallet()
-    result = w1.raw_request(method="generate_from_keys", params={
+    # Example from https://www.getmonero.org/resources/developer-guides/wallet-rpc.html#generate_from_keys
+    rpc_server = JSONRPCWallet(port=28088)
+    result = rpc_server.raw_request(method="generate_from_keys", params={
             "restore_height": 0,
             "filename":wallet_filename,
             "address":address,
-            "spendkey":spendkey,
-            "viewkey":viewkey,
+            "spendkey":spendkey.hex(),
+            "viewkey":viewkey.hex(),
             "password":pw,
         })
-    
     return result
 
 def get_combined_private_key(partial_private_spend_a, partial_private_spend_b):
@@ -94,8 +73,6 @@ def test_monero_address():
     assert address == correct_address
 
 
-
-
 def test_keys_addition():
     """
     Test that the generated keys can actually be added with each other.
@@ -109,6 +86,13 @@ def test_keys_addition():
 
     assert u.points_add(keys1[1], keys2[1]) == u.get_public_from_secret(u.scalar_add(keys1[0], keys2[0]))
 
+
+def test_monero_rpc_generate_from_keys():
+    xavier = generate_monero_keys(env="test")
+    result = generate_from_keys("xavier_wallet", xavier[1], xavier[0][0][0], xavier[0][1][0], "")
+    assert "Wallet has been generated successfully." in result["info"]
+
 if __name__ == '__main__':
     test_keys_addition()
     test_monero_address()
+    test_monero_rpc_generate_from_keys()
