@@ -15,8 +15,8 @@ alice_algorand_account = algorand_accounts[0]
 bob_algorand_account = algorand_accounts[1]
 eve_algorand_account = algorand_accounts[2]
 
-alice_monero_keys = mu.generate_monero_keys() # [0][0] is private spend, [0][1] is public spend, [1][0] is private view, [1][1] is public view
-bob_monero_keys = mu.generate_monero_keys()
+alice_monero_keys, alice_monero_address = mu.generate_monero_keys(env="test") # [0][0] is private spend, [0][1] is public spend, [1][0] is private view, [1][1] is public view
+bob_monero_keys, bob_monero_address = mu.generate_monero_keys(env="test")
 
 alice_trades_algos = int(500 * 1e6)
 bob_trades_xmr = 1.1
@@ -26,12 +26,10 @@ t1 = t0 + 60
 
 SHARED_OR_PUBLIC_INFORMATION = {
     'alice_algorand_address': alice_algorand_account[0],
-    'alice_monero_pubspend': alice_monero_keys[0][1],
-    'alice_monero_viewkeys': alice_monero_keys[1],
+    'alice_monero_address': alice_monero_address,
     'alice_algos': alice_trades_algos,
     'bob_algorand_address': bob_algorand_account[0],
-    'bob_monero_pubspend': bob_monero_keys[0][1],
-    'bob_monero_viewkeys': bob_monero_keys[1],
+    'bob_monero_address': bob_monero_address,
     'bob_xmr': bob_trades_xmr,
     't0': t0,
     't1': t1
@@ -55,6 +53,7 @@ program_hash = au.get_program_hash(approval_teal)
 
 # Bob can also produce the same program_hash
 # TODO: BOB, ON HIS SIDE, COMPILES PROGRAM
+## TODO: FUNC TO EXTRACT PUB SPEND AND VIEW KEY FROM MONERO ADDRESS
 SHARED_OR_PUBLIC_INFORMATION['program_hash'] = program_hash
 
 # Alice deploys the contract 
@@ -93,8 +92,10 @@ assert recovered_private_key == bob_monero_keys[0][0]
 combined_private_spend = mu.get_combined_private_key(alice_monero_keys[0][0], recovered_private_key)
 assert u.points_add(alice_monero_keys[0][1], bob_monero_keys[0][1]) == u.get_public_from_secret(combined_private_spend)
 
-# TODO: MONERO ACTION: ALICE RECONSTRUCTS FULL MONERO ADDRESS AND KEYS IN WALLET
-
+# Alice generates a wallet from the combined info, taking control of the funds
+combined_all_keys = mu.generate_monero_keys(seed_hex=combined_private_spend, env="test")
+combined_rpc_result = mu.generate_from_keys("combined_wallet", combined_all_keys[1], combined_all_keys[0][0][0], combined_all_keys[0][1][0], "")
+assert "Wallet has been generated successfully." in combined_rpc_result["info"]
 
 
 # Delete Contract
