@@ -79,8 +79,8 @@ def test_extract_private_key_own_signing():
     It doesn't, but it does expose ed25519verify. We can hack it to our favor. 
     If we force r = 1 (r = 0 seems to not be allowed by nacl :C):
 
-    s == 1 + hash(G|C|msg)*c
-    s - 1 == hash(G|C|msg)*c
+    s == 1 + hash(R|C|msg)*c
+    s - 1 == hash(R|C|msg)*c
     (s - 1)*hash(R|C|msg)^-1 == c
 
     The smart contract can ensure that R really is 1G, in which case s - 1 must
@@ -91,9 +91,9 @@ def test_extract_private_key_own_signing():
     ed25519verify_bare will not require those things.) 
 
     """
-    keys = monero_utils.generate_monero_keys()
-    c = keys[0][0] # private key
-    C = keys[0][1] # public key
+    keys, _ = monero_utils.generate_monero_keys()
+    c = keys[0][0] # private spend key
+    C = keys[0][1] # public spend key
 
     msg = b"ProgData" + b"programhash" + b"data_A"
 
@@ -118,7 +118,7 @@ def test_extract_private_key_import_verify():
     Instead of verifying using "math", we verify against libsodium's verification func.
     """
 
-    keys = monero_utils.generate_monero_keys()
+    keys, _ = monero_utils.generate_monero_keys()
     c = keys[0][0]
     C = keys[0][1]
     

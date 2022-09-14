@@ -14,7 +14,6 @@ def generate_monero_keys(seed_hex=None, env="main"):
         spend_sk = u.little_to_big(u.itb(seed_dec))
     else:
         spend_sk = u.itb(secrets.randbits(256) % l)
-#    print(u.little_to_big(spend_sk).hex())
 
     view_sk = u.itb(u.bti(u.hash256(spend_sk)) % l)
     # generate view_sk from spend_sk so we only need to store one key.
@@ -81,10 +80,8 @@ def test_keys_addition():
     alice, _ = generate_monero_keys()
     bob, _ = generate_monero_keys()
 
-    keys1 = [alice[0][0], alice[0][1]]
-    keys2 = [bob[0][0], bob[0][1]]
-
-    assert u.points_add(keys1[1], keys2[1]) == u.get_public_from_secret(u.scalar_add(keys1[0], keys2[0]))
+    assert u.points_add(alice[0][1], bob[0][1]) == u.get_public_from_secret(u.scalar_add(alice[0][0], bob[0][0]))
+    assert u.points_add(alice[1][1], bob[1][1]) == u.get_public_from_secret(u.scalar_add(alice[1][0], bob[1][0]))
 
 
 def test_monero_rpc_generate_from_keys():
@@ -95,4 +92,4 @@ def test_monero_rpc_generate_from_keys():
 if __name__ == '__main__':
     test_keys_addition()
     test_monero_address()
-    test_monero_rpc_generate_from_keys()
+    #test_monero_rpc_generate_from_keys()
