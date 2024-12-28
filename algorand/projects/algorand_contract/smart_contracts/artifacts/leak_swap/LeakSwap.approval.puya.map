@@ -1,0 +1,2069 @@
+{
+  "version": 3,
+  "sources": [
+    "../../leak_swap/contract.py"
+  ],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAkBA;;;AAC6D;AAApB;;AAAjC;AAGqD;AAApB;;AAAjC;AAQA;;AAAoB;;AAApB;;AAbR;;;AAAA;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;;;;;AAAA;AAAA;AAeK;;AAAA;AAAA;AAAA;;AAAA;AAfL;;;AAAA;;;AAeK;;;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAIA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;;AAAA;AAAA;AA0DA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;;AAAA;AAAA;AASA;;AAAA;AAAA;AAAA;;AAAA;AAtFL;;;AAAA;;;AAsFK;;;AAAA;AAAA;AAoBA;;AAAA;AAAA;AAAA;;AAAA;AA1GL;;;AAAA;;;AA0GK;;;AAAA;AAAA;AAuBA;;AAAA;AAAA;AAAA;;AAAA;AAAA;;;AAAA;AAAA;AAjIL;AAAA;AAeA;;;AAEe;;;;;;;;;AAAA;;AAAA;AAAP;AAER;;;AAKQ;AAAwC;;AAAxC;AAEO;AAAA;AAAA;AAAA;AAAgB;;AAAhB;AAAP;AACO;AAAA;AAAA;AAAA;AAAgB;AAAA;AAAA;AAAA;AAAhB;AAAP;;AAkDR;;;AAMe;;AAAc;AAAA;AAAA;AAAA;AAAd;AAAP;AACA;;AAAuB;AAAvB;;AAER;;;AAQe;;AAAc;AAAA;AAAA;AAAA;AAAd;AAAP;AAGO;;AAA2B;AAAA;AAAA;AAAA;AAA3B;AAAP;AACO;AAAA;;AAAA;AAAA;AAAA;AAAP;AAGqC;AAAA;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAArC;;AAAA;AAAA;;;AAGoB;AAAA;AAAA;AAAA;AAApB;;;;AA5CR;;;AAOe;;AAAA;;;AAAgC;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAhC;AAAP;AAC6B;AAAA;;AAAA;AAAA;AAAtB;;AAAA;;AAAA;AAAP;;AAhCR;;;AAKQ;;;;;;;;;AAAA;;;AAGQ;;;AAHR;;AAiER;;;AAQe;;AAAc;AAAA;AAAA;AAAA;AAAd;AAAP;AAII;;AAA0B;AAAA;AAAA;AAAA;AAA1B;AAAA;;;AAA2C;AAAA;;AAAA;AAAA;AAAwB;AAAxB;AAA3C;;;;;;;;AADJ;AAIO;;AAA2B;AAAA;AAAA;AAAA;AAA3B;AAAP;AAGqC;AAAA;;;;;;;;;;;;;;;;AAAA;AAAA;AAArC;;AAAA;AAAA;;;AAGoB;AAAA;AAAA;AAAA;AAApB;;;;AAER;;;AAGe;;AAAc;AAAA;AAAA;AAAA;AAAd;AAAP;AAGO;;AAA0B;AAAA;AAAA;AAAA;AAA1B;AAAP;AAGoB;AAAA;AAAA;AAAA;AAApB;;;",
+  "op_pc_offset": 0,
+  "pc_events": {
+    "1": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.approval_program",
+      "params": {},
+      "block": "smart_contracts.leak_swap.contract.LeakSwap.approval_program",
+      "stack_in": [],
+      "op": "intcblock 0 1"
+    },
+    "5": {
+      "op": "bytecblock 0x616c6963655f616c676f5f61646472 0x74305f74696d657374616d70 0x78696e5f616c676f5f61646472 0x74315f74696d657374616d70 0x616c695f7265616479 \"data_to_sign\""
+    },
+    "86": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "88": {
+      "op": "bnz main_after_if_else@2",
+      "stack_out": []
+    },
+    "91": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.__init__",
+      "op": "callsub __init__"
+    },
+    "94": {
+      "block": "main_after_if_else@2",
+      "stack_in": [],
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.__puya_arc4_router__",
+      "op": "callsub __puya_arc4_router__",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "97": {
+      "op": "return",
+      "stack_out": []
+    },
+    "98": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.__init__",
+      "params": {},
+      "block": "__init__",
+      "stack_in": [],
+      "op": "proto 0 0"
+    },
+    "101": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472"
+    },
+    "102": {
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "0x616c6963655f616c676f5f61646472",
+        "new_state_value%0#0"
+      ],
+      "stack_out": [
+        "0x616c6963655f616c676f5f61646472",
+        "new_state_value%0#0"
+      ]
+    },
+    "104": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "105": {
+      "op": "bytec_2 // 0x78696e5f616c676f5f61646472"
+    },
+    "106": {
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "0x78696e5f616c676f5f61646472",
+        "new_state_value%1#0"
+      ],
+      "stack_out": [
+        "0x78696e5f616c676f5f61646472",
+        "new_state_value%1#0"
+      ]
+    },
+    "108": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "109": {
+      "op": "bytec 5 // \"data_to_sign\""
+    },
+    "111": {
+      "op": "global CurrentApplicationAddress",
+      "defined_out": [
+        "\"data_to_sign\"",
+        "new_state_value%2#0"
+      ],
+      "stack_out": [
+        "\"data_to_sign\"",
+        "new_state_value%2#0"
+      ]
+    },
+    "113": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "114": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "115": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.__puya_arc4_router__",
+      "params": {},
+      "block": "__puya_arc4_router__",
+      "stack_in": [],
+      "op": "proto 0 1"
+    },
+    "118": {
+      "op": "txn NumAppArgs",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "120": {
+      "op": "bz __puya_arc4_router___after_if_else@11",
+      "stack_out": []
+    },
+    "123": {
+      "op": "pushbytess 0x02bece11 0x4c5c61ba 0xb4ed4f93 0x1f7a4a13 0x736ea3d4 0x7bda2dfa // method \"hello(string)string\", method \"create()void\", method \"set_ready()void\", method \"leaky_refund(byte[])void\", method \"leaky_claim(byte[])void\", method \"punish_refund()void\""
+    },
+    "155": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(create()void)",
+        "Method(hello(string)string)",
+        "Method(leaky_claim(byte[])void)",
+        "Method(leaky_refund(byte[])void)",
+        "Method(punish_refund()void)",
+        "Method(set_ready()void)",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "Method(hello(string)string)",
+        "Method(create()void)",
+        "Method(set_ready()void)",
+        "Method(leaky_refund(byte[])void)",
+        "Method(leaky_claim(byte[])void)",
+        "Method(punish_refund()void)",
+        "tmp%2#0"
+      ]
+    },
+    "158": {
+      "op": "match __puya_arc4_router___hello_route@2 __puya_arc4_router___create_route@3 __puya_arc4_router___set_ready_route@4 __puya_arc4_router___leaky_refund_route@5 __puya_arc4_router___leaky_claim_route@6 __puya_arc4_router___punish_refund_route@7",
+      "stack_out": []
+    },
+    "172": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "173": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "174": {
+      "block": "__puya_arc4_router___hello_route@2",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "176": {
+      "op": "!",
+      "defined_out": [
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "tmp%4#0"
+      ]
+    },
+    "177": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "178": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0"
+      ]
+    },
+    "180": {
+      "error": "can only call when not creating",
+      "op": "assert // can only call when not creating",
+      "stack_out": []
+    },
+    "181": {
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%7#0"
+      ],
+      "stack_out": [
+        "tmp%7#0"
+      ]
+    },
+    "184": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "tmp%8#0"
+      ],
+      "stack_out": [
+        "tmp%8#0"
+      ]
+    },
+    "187": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.hello",
+      "op": "callsub hello",
+      "defined_out": [
+        "to_encode%0#0"
+      ],
+      "stack_out": [
+        "to_encode%0#0"
+      ]
+    },
+    "190": {
+      "op": "dup",
+      "defined_out": [
+        "to_encode%0#0",
+        "to_encode%0#0 (copy)"
+      ],
+      "stack_out": [
+        "to_encode%0#0",
+        "to_encode%0#0 (copy)"
+      ]
+    },
+    "191": {
+      "op": "len",
+      "defined_out": [
+        "length%0#0",
+        "to_encode%0#0"
+      ],
+      "stack_out": [
+        "to_encode%0#0",
+        "length%0#0"
+      ]
+    },
+    "192": {
+      "op": "itob",
+      "defined_out": [
+        "as_bytes%0#0",
+        "to_encode%0#0"
+      ],
+      "stack_out": [
+        "to_encode%0#0",
+        "as_bytes%0#0"
+      ]
+    },
+    "193": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "length_uint16%0#0",
+        "to_encode%0#0"
+      ],
+      "stack_out": [
+        "to_encode%0#0",
+        "length_uint16%0#0"
+      ]
+    },
+    "196": {
+      "op": "swap",
+      "stack_out": [
+        "length_uint16%0#0",
+        "to_encode%0#0"
+      ]
+    },
+    "197": {
+      "op": "concat",
+      "defined_out": [
+        "encoded_value%0#0"
+      ],
+      "stack_out": [
+        "encoded_value%0#0"
+      ]
+    },
+    "198": {
+      "op": "pushbytes 0x151f7c75",
+      "defined_out": [
+        "0x151f7c75",
+        "encoded_value%0#0"
+      ],
+      "stack_out": [
+        "encoded_value%0#0",
+        "0x151f7c75"
+      ]
+    },
+    "204": {
+      "op": "swap",
+      "stack_out": [
+        "0x151f7c75",
+        "encoded_value%0#0"
+      ]
+    },
+    "205": {
+      "op": "concat",
+      "defined_out": [
+        "tmp%9#0"
+      ],
+      "stack_out": [
+        "tmp%9#0"
+      ]
+    },
+    "206": {
+      "op": "log",
+      "stack_out": []
+    },
+    "207": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "208": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "209": {
+      "block": "__puya_arc4_router___create_route@3",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%10#0"
+      ],
+      "stack_out": [
+        "tmp%10#0"
+      ]
+    },
+    "211": {
+      "op": "!",
+      "defined_out": [
+        "tmp%11#0"
+      ],
+      "stack_out": [
+        "tmp%11#0"
+      ]
+    },
+    "212": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "213": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%12#0"
+      ],
+      "stack_out": [
+        "tmp%12#0"
+      ]
+    },
+    "215": {
+      "op": "!",
+      "defined_out": [
+        "tmp%13#0"
+      ],
+      "stack_out": [
+        "tmp%13#0"
+      ]
+    },
+    "216": {
+      "error": "can only call when creating",
+      "op": "assert // can only call when creating",
+      "stack_out": []
+    },
+    "217": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.create",
+      "op": "callsub create"
+    },
+    "220": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "221": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "222": {
+      "block": "__puya_arc4_router___set_ready_route@4",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%14#0"
+      ],
+      "stack_out": [
+        "tmp%14#0"
+      ]
+    },
+    "224": {
+      "op": "!",
+      "defined_out": [
+        "tmp%15#0"
+      ],
+      "stack_out": [
+        "tmp%15#0"
+      ]
+    },
+    "225": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "226": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%16#0"
+      ],
+      "stack_out": [
+        "tmp%16#0"
+      ]
+    },
+    "228": {
+      "error": "can only call when not creating",
+      "op": "assert // can only call when not creating",
+      "stack_out": []
+    },
+    "229": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.set_ready",
+      "op": "callsub set_ready"
+    },
+    "232": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "233": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "234": {
+      "block": "__puya_arc4_router___leaky_refund_route@5",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%18#0"
+      ],
+      "stack_out": [
+        "tmp%18#0"
+      ]
+    },
+    "236": {
+      "op": "!",
+      "defined_out": [
+        "tmp%19#0"
+      ],
+      "stack_out": [
+        "tmp%19#0"
+      ]
+    },
+    "237": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "238": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%20#0"
+      ],
+      "stack_out": [
+        "tmp%20#0"
+      ]
+    },
+    "240": {
+      "error": "can only call when not creating",
+      "op": "assert // can only call when not creating",
+      "stack_out": []
+    },
+    "241": {
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%22#0"
+      ],
+      "stack_out": [
+        "tmp%22#0"
+      ]
+    },
+    "244": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "tmp%23#0"
+      ],
+      "stack_out": [
+        "tmp%23#0"
+      ]
+    },
+    "247": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.leaky_refund",
+      "op": "callsub leaky_refund",
+      "stack_out": []
+    },
+    "250": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "251": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "252": {
+      "block": "__puya_arc4_router___leaky_claim_route@6",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%24#0"
+      ],
+      "stack_out": [
+        "tmp%24#0"
+      ]
+    },
+    "254": {
+      "op": "!",
+      "defined_out": [
+        "tmp%25#0"
+      ],
+      "stack_out": [
+        "tmp%25#0"
+      ]
+    },
+    "255": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "256": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%26#0"
+      ],
+      "stack_out": [
+        "tmp%26#0"
+      ]
+    },
+    "258": {
+      "error": "can only call when not creating",
+      "op": "assert // can only call when not creating",
+      "stack_out": []
+    },
+    "259": {
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%28#0"
+      ],
+      "stack_out": [
+        "tmp%28#0"
+      ]
+    },
+    "262": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "tmp%29#0"
+      ],
+      "stack_out": [
+        "tmp%29#0"
+      ]
+    },
+    "265": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.leaky_claim",
+      "op": "callsub leaky_claim",
+      "stack_out": []
+    },
+    "268": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "269": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "270": {
+      "block": "__puya_arc4_router___punish_refund_route@7",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%30#0"
+      ],
+      "stack_out": [
+        "tmp%30#0"
+      ]
+    },
+    "272": {
+      "op": "!",
+      "defined_out": [
+        "tmp%31#0"
+      ],
+      "stack_out": [
+        "tmp%31#0"
+      ]
+    },
+    "273": {
+      "error": "OnCompletion is not NoOp",
+      "op": "assert // OnCompletion is not NoOp",
+      "stack_out": []
+    },
+    "274": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%32#0"
+      ],
+      "stack_out": [
+        "tmp%32#0"
+      ]
+    },
+    "276": {
+      "error": "can only call when not creating",
+      "op": "assert // can only call when not creating",
+      "stack_out": []
+    },
+    "277": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.punish_refund",
+      "op": "callsub punish_refund"
+    },
+    "280": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "281": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "282": {
+      "block": "__puya_arc4_router___after_if_else@11",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "283": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "284": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.hello",
+      "params": {
+        "name#0": "bytes"
+      },
+      "block": "hello",
+      "stack_in": [],
+      "op": "proto 1 1"
+    },
+    "287": {
+      "op": "pushbytes \"Hello, \"",
+      "defined_out": [
+        "\"Hello, \""
+      ],
+      "stack_out": [
+        "\"Hello, \""
+      ]
+    },
+    "296": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "\"Hello, \"",
+        "name#0 (copy)"
+      ],
+      "stack_out": [
+        "\"Hello, \"",
+        "name#0 (copy)"
+      ]
+    },
+    "298": {
+      "op": "concat",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "299": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "300": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.create",
+      "params": {},
+      "block": "create",
+      "stack_in": [],
+      "op": "proto 0 0"
+    },
+    "303": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472"
+    },
+    "304": {
+      "op": "txn Sender",
+      "defined_out": [
+        "0x616c6963655f616c676f5f61646472",
+        "new_state_value%0#0"
+      ],
+      "stack_out": [
+        "0x616c6963655f616c676f5f61646472",
+        "new_state_value%0#0"
+      ]
+    },
+    "306": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "307": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "308": {
+      "op": "bytec_1 // 0x74305f74696d657374616d70",
+      "defined_out": [
+        "0",
+        "0x74305f74696d657374616d70"
+      ],
+      "stack_out": [
+        "0",
+        "0x74305f74696d657374616d70"
+      ]
+    },
+    "309": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "310": {
+      "error": "check self.t0 exists",
+      "op": "assert // check self.t0 exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "311": {
+      "op": "global LatestTimestamp",
+      "defined_out": [
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ]
+    },
+    "313": {
+      "op": ">",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "314": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "315": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "316": {
+      "op": "bytec_3 // 0x74315f74696d657374616d70",
+      "defined_out": [
+        "0",
+        "0x74315f74696d657374616d70"
+      ],
+      "stack_out": [
+        "0",
+        "0x74315f74696d657374616d70"
+      ]
+    },
+    "317": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%1#0"
+      ],
+      "stack_out": [
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "318": {
+      "error": "check self.t1 exists",
+      "op": "assert // check self.t1 exists",
+      "stack_out": [
+        "maybe_value%1#0"
+      ]
+    },
+    "319": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "maybe_value%1#0",
+        "0"
+      ]
+    },
+    "320": {
+      "op": "bytec_1 // 0x74305f74696d657374616d70",
+      "stack_out": [
+        "maybe_value%1#0",
+        "0",
+        "0x74305f74696d657374616d70"
+      ]
+    },
+    "321": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%1#0",
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "322": {
+      "error": "check self.t0 exists",
+      "op": "assert // check self.t0 exists",
+      "stack_out": [
+        "maybe_value%1#0",
+        "maybe_value%2#0"
+      ]
+    },
+    "323": {
+      "op": ">",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "324": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "325": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "326": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.set_ready",
+      "params": {},
+      "block": "set_ready",
+      "stack_in": [],
+      "op": "proto 0 0"
+    },
+    "329": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "331": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "332": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472",
+      "defined_out": [
+        "0",
+        "0x616c6963655f616c676f5f61646472",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "0x616c6963655f616c676f5f61646472"
+      ]
+    },
+    "333": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "334": {
+      "error": "check self.ali_algo_addr exists",
+      "op": "assert // check self.ali_algo_addr exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "335": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "336": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "337": {
+      "op": "bytec 4 // 0x616c695f7265616479",
+      "defined_out": [
+        "0x616c695f7265616479"
+      ],
+      "stack_out": [
+        "0x616c695f7265616479"
+      ]
+    },
+    "339": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "0x616c695f7265616479",
+        "1"
+      ],
+      "stack_out": [
+        "0x616c695f7265616479",
+        "1"
+      ]
+    },
+    "340": {
+      "op": "app_global_put",
+      "stack_out": []
+    },
+    "341": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "342": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.leaky_refund",
+      "params": {
+        "signature#0": "bytes"
+      },
+      "block": "leaky_refund",
+      "stack_in": [],
+      "op": "proto 1 0"
+    },
+    "345": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "347": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "348": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472",
+      "defined_out": [
+        "0",
+        "0x616c6963655f616c676f5f61646472",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "0x616c6963655f616c676f5f61646472"
+      ]
+    },
+    "349": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "350": {
+      "error": "check self.ali_algo_addr exists",
+      "op": "assert // check self.ali_algo_addr exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "351": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "352": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "353": {
+      "op": "global LatestTimestamp",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "355": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "tmp%2#0",
+        "0"
+      ]
+    },
+    "356": {
+      "op": "bytec_1 // 0x74305f74696d657374616d70",
+      "defined_out": [
+        "0",
+        "0x74305f74696d657374616d70",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "0",
+        "0x74305f74696d657374616d70"
+      ]
+    },
+    "357": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%1#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "358": {
+      "error": "check self.t0 exists",
+      "op": "assert // check self.t0 exists",
+      "stack_out": [
+        "tmp%2#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "359": {
+      "op": "<=",
+      "defined_out": [
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "360": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "361": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "362": {
+      "op": "bytec 4 // 0x616c695f7265616479",
+      "defined_out": [
+        "0",
+        "0x616c695f7265616479"
+      ],
+      "stack_out": [
+        "0",
+        "0x616c695f7265616479"
+      ]
+    },
+    "364": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "365": {
+      "error": "check self.ali_ready exists",
+      "op": "assert // check self.ali_ready exists",
+      "stack_out": [
+        "maybe_value%2#0"
+      ]
+    },
+    "366": {
+      "op": "!",
+      "defined_out": [
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "tmp%4#0"
+      ]
+    },
+    "367": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "368": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "369": {
+      "op": "pushbytes 0x616c6963655f787465726e616c5f706b",
+      "defined_out": [
+        "0",
+        "0x616c6963655f787465726e616c5f706b"
+      ],
+      "stack_out": [
+        "0",
+        "0x616c6963655f787465726e616c5f706b"
+      ]
+    },
+    "387": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%3#0",
+        "maybe_value%3#0"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "maybe_exists%3#0"
+      ]
+    },
+    "388": {
+      "error": "check self.ali_xternal_pk exists",
+      "op": "assert // check self.ali_xternal_pk exists",
+      "stack_out": [
+        "maybe_value%3#0"
+      ]
+    },
+    "389": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "maybe_value%3#0",
+        "signature#0 (copy)"
+      ],
+      "stack_out": [
+        "maybe_value%3#0",
+        "signature#0 (copy)"
+      ]
+    },
+    "391": {
+      "op": "swap",
+      "stack_out": [
+        "signature#0 (copy)",
+        "maybe_value%3#0"
+      ]
+    },
+    "392": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.leaky_verify_ed25519",
+      "op": "callsub leaky_verify_ed25519",
+      "stack_out": []
+    },
+    "395": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "396": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472",
+      "stack_out": [
+        "0",
+        "0x616c6963655f616c676f5f61646472"
+      ]
+    },
+    "397": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%4#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%4#0",
+        "maybe_exists%4#0"
+      ]
+    },
+    "398": {
+      "error": "check self.ali_algo_addr exists",
+      "op": "assert // check self.ali_algo_addr exists",
+      "stack_out": [
+        "maybe_value%4#0"
+      ]
+    },
+    "399": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.disburse_funds",
+      "op": "callsub disburse_funds",
+      "stack_out": []
+    },
+    "402": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "403": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.leaky_verify_ed25519",
+      "params": {
+        "signature#0": "bytes",
+        "xternal_pk#0": "bytes"
+      },
+      "block": "leaky_verify_ed25519",
+      "stack_in": [],
+      "op": "proto 2 0"
+    },
+    "406": {
+      "op": "frame_dig -2",
+      "defined_out": [
+        "signature#0 (copy)"
+      ],
+      "stack_out": [
+        "signature#0 (copy)"
+      ]
+    },
+    "408": {
+      "op": "extract 0 32",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "411": {
+      "op": "pushbytes 0x5866666666666666666666666666666666666666666666666666666666666666",
+      "defined_out": [
+        "0x5866666666666666666666666666666666666666666666666666666666666666",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0x5866666666666666666666666666666666666666666666666666666666666666"
+      ]
+    },
+    "445": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "446": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "447": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "448": {
+      "op": "bytec 5 // \"data_to_sign\"",
+      "defined_out": [
+        "\"data_to_sign\"",
+        "0"
+      ],
+      "stack_out": [
+        "0",
+        "\"data_to_sign\""
+      ]
+    },
+    "450": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "451": {
+      "error": "check self.data_to_sign exists",
+      "op": "assert // check self.data_to_sign exists",
+      "stack_out": [
+        "maybe_value%0#0"
+      ]
+    },
+    "452": {
+      "op": "frame_dig -2",
+      "stack_out": [
+        "maybe_value%0#0",
+        "signature#0 (copy)"
+      ]
+    },
+    "454": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "maybe_value%0#0",
+        "signature#0 (copy)",
+        "xternal_pk#0 (copy)"
+      ],
+      "stack_out": [
+        "maybe_value%0#0",
+        "signature#0 (copy)",
+        "xternal_pk#0 (copy)"
+      ]
+    },
+    "456": {
+      "op": "ed25519verify_bare",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "457": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "458": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "459": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.disburse_funds",
+      "params": {
+        "recipient#0": "bytes"
+      },
+      "block": "disburse_funds",
+      "stack_in": [],
+      "op": "proto 1 0"
+    },
+    "462": {
+      "op": "itxn_begin"
+    },
+    "463": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "recipient#0 (copy)"
+      ],
+      "stack_out": [
+        "recipient#0 (copy)"
+      ]
+    },
+    "465": {
+      "op": "itxn_field CloseRemainderTo",
+      "stack_out": []
+    },
+    "467": {
+      "op": "frame_dig -1",
+      "stack_out": [
+        "recipient#0 (copy)"
+      ]
+    },
+    "469": {
+      "op": "itxn_field Receiver",
+      "stack_out": []
+    },
+    "471": {
+      "op": "intc_1 // pay",
+      "defined_out": [
+        "pay"
+      ],
+      "stack_out": [
+        "pay"
+      ]
+    },
+    "472": {
+      "op": "itxn_field TypeEnum",
+      "stack_out": []
+    },
+    "474": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "0"
+      ]
+    },
+    "475": {
+      "op": "itxn_field Fee",
+      "stack_out": []
+    },
+    "477": {
+      "op": "itxn_submit"
+    },
+    "478": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "479": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.leaky_claim",
+      "params": {
+        "signature#0": "bytes"
+      },
+      "block": "leaky_claim",
+      "stack_in": [],
+      "op": "proto 1 0"
+    },
+    "482": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "484": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "485": {
+      "op": "bytec_2 // 0x78696e5f616c676f5f61646472",
+      "defined_out": [
+        "0",
+        "0x78696e5f616c676f5f61646472",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "0x78696e5f616c676f5f61646472"
+      ]
+    },
+    "486": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "487": {
+      "error": "check self.xin_algo_addr exists",
+      "op": "assert // check self.xin_algo_addr exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "488": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "489": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "490": {
+      "op": "global LatestTimestamp",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "492": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "tmp%2#0",
+        "0"
+      ]
+    },
+    "493": {
+      "op": "bytec_1 // 0x74305f74696d657374616d70",
+      "defined_out": [
+        "0",
+        "0x74305f74696d657374616d70",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "0",
+        "0x74305f74696d657374616d70"
+      ]
+    },
+    "494": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%1#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "495": {
+      "error": "check self.t0 exists",
+      "op": "assert // check self.t0 exists",
+      "stack_out": [
+        "tmp%2#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "496": {
+      "op": ">",
+      "defined_out": [
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "497": {
+      "op": "bnz leaky_claim_bool_true@2",
+      "stack_out": []
+    },
+    "500": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "501": {
+      "op": "bytec 4 // 0x616c695f7265616479",
+      "defined_out": [
+        "0",
+        "0x616c695f7265616479"
+      ],
+      "stack_out": [
+        "0",
+        "0x616c695f7265616479"
+      ]
+    },
+    "503": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "504": {
+      "error": "check self.ali_ready exists",
+      "op": "assert // check self.ali_ready exists",
+      "stack_out": [
+        "maybe_value%2#0"
+      ]
+    },
+    "505": {
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "1",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "1"
+      ]
+    },
+    "506": {
+      "op": "==",
+      "defined_out": [
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "tmp%4#0"
+      ]
+    },
+    "507": {
+      "op": "bz leaky_claim_bool_false@3",
+      "stack_out": []
+    },
+    "510": {
+      "block": "leaky_claim_bool_true@2",
+      "stack_in": [],
+      "op": "intc_1 // 1",
+      "defined_out": [
+        "or_result%0#0"
+      ],
+      "stack_out": [
+        "or_result%0#0"
+      ]
+    },
+    "511": {
+      "op": "b leaky_claim_bool_merge@4"
+    },
+    "514": {
+      "block": "leaky_claim_bool_false@3",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "or_result%0#0"
+      ],
+      "stack_out": [
+        "or_result%0#0"
+      ]
+    },
+    "515": {
+      "block": "leaky_claim_bool_merge@4",
+      "stack_in": [
+        "or_result%0#0"
+      ],
+      "op": "assert",
+      "defined_out": [],
+      "stack_out": []
+    },
+    "516": {
+      "op": "global LatestTimestamp",
+      "defined_out": [
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0"
+      ]
+    },
+    "518": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0",
+        "0"
+      ]
+    },
+    "519": {
+      "op": "bytec_3 // 0x74315f74696d657374616d70",
+      "defined_out": [
+        "0",
+        "0x74315f74696d657374616d70",
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0",
+        "0",
+        "0x74315f74696d657374616d70"
+      ]
+    },
+    "520": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%3#0",
+        "maybe_value%3#0",
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0",
+        "maybe_value%3#0",
+        "maybe_exists%3#0"
+      ]
+    },
+    "521": {
+      "error": "check self.t1 exists",
+      "op": "assert // check self.t1 exists",
+      "stack_out": [
+        "tmp%5#0",
+        "maybe_value%3#0"
+      ]
+    },
+    "522": {
+      "op": "<=",
+      "defined_out": [
+        "tmp%6#0"
+      ],
+      "stack_out": [
+        "tmp%6#0"
+      ]
+    },
+    "523": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "524": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "525": {
+      "op": "pushbytes 0x78696e5f787465726e616c5f706b",
+      "defined_out": [
+        "0",
+        "0x78696e5f787465726e616c5f706b"
+      ],
+      "stack_out": [
+        "0",
+        "0x78696e5f787465726e616c5f706b"
+      ]
+    },
+    "541": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%4#0",
+        "maybe_value%4#0"
+      ],
+      "stack_out": [
+        "maybe_value%4#0",
+        "maybe_exists%4#0"
+      ]
+    },
+    "542": {
+      "error": "check self.xin_xternal_pk exists",
+      "op": "assert // check self.xin_xternal_pk exists",
+      "stack_out": [
+        "maybe_value%4#0"
+      ]
+    },
+    "543": {
+      "op": "frame_dig -1",
+      "defined_out": [
+        "maybe_value%4#0",
+        "signature#0 (copy)"
+      ],
+      "stack_out": [
+        "maybe_value%4#0",
+        "signature#0 (copy)"
+      ]
+    },
+    "545": {
+      "op": "swap",
+      "stack_out": [
+        "signature#0 (copy)",
+        "maybe_value%4#0"
+      ]
+    },
+    "546": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.leaky_verify_ed25519",
+      "op": "callsub leaky_verify_ed25519",
+      "stack_out": []
+    },
+    "549": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "550": {
+      "op": "bytec_2 // 0x78696e5f616c676f5f61646472",
+      "defined_out": [
+        "0",
+        "0x78696e5f616c676f5f61646472"
+      ],
+      "stack_out": [
+        "0",
+        "0x78696e5f616c676f5f61646472"
+      ]
+    },
+    "551": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%5#0",
+        "maybe_value%5#0"
+      ],
+      "stack_out": [
+        "maybe_value%5#0",
+        "maybe_exists%5#0"
+      ]
+    },
+    "552": {
+      "error": "check self.xin_algo_addr exists",
+      "op": "assert // check self.xin_algo_addr exists",
+      "stack_out": [
+        "maybe_value%5#0"
+      ]
+    },
+    "553": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.disburse_funds",
+      "op": "callsub disburse_funds",
+      "stack_out": []
+    },
+    "556": {
+      "retsub": true,
+      "op": "retsub"
+    },
+    "557": {
+      "subroutine": "smart_contracts.leak_swap.contract.LeakSwap.punish_refund",
+      "params": {},
+      "block": "punish_refund",
+      "stack_in": [],
+      "op": "proto 0 0"
+    },
+    "560": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "562": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "563": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472",
+      "defined_out": [
+        "0",
+        "0x616c6963655f616c676f5f61646472",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "0x616c6963655f616c676f5f61646472"
+      ]
+    },
+    "564": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "565": {
+      "error": "check self.ali_algo_addr exists",
+      "op": "assert // check self.ali_algo_addr exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "566": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "567": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "568": {
+      "op": "global LatestTimestamp",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "570": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "tmp%2#0",
+        "0"
+      ]
+    },
+    "571": {
+      "op": "bytec_3 // 0x74315f74696d657374616d70",
+      "defined_out": [
+        "0",
+        "0x74315f74696d657374616d70",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "0",
+        "0x74315f74696d657374616d70"
+      ]
+    },
+    "572": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%1#0",
+        "maybe_value%1#0",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "maybe_value%1#0",
+        "maybe_exists%1#0"
+      ]
+    },
+    "573": {
+      "error": "check self.t1 exists",
+      "op": "assert // check self.t1 exists",
+      "stack_out": [
+        "tmp%2#0",
+        "maybe_value%1#0"
+      ]
+    },
+    "574": {
+      "op": ">",
+      "defined_out": [
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%3#0"
+      ]
+    },
+    "575": {
+      "op": "assert",
+      "stack_out": []
+    },
+    "576": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "0"
+      ]
+    },
+    "577": {
+      "op": "bytec_0 // 0x616c6963655f616c676f5f61646472",
+      "stack_out": [
+        "0",
+        "0x616c6963655f616c676f5f61646472"
+      ]
+    },
+    "578": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%2#0",
+        "maybe_value%2#0"
+      ],
+      "stack_out": [
+        "maybe_value%2#0",
+        "maybe_exists%2#0"
+      ]
+    },
+    "579": {
+      "error": "check self.ali_algo_addr exists",
+      "op": "assert // check self.ali_algo_addr exists",
+      "stack_out": [
+        "maybe_value%2#0"
+      ]
+    },
+    "580": {
+      "callsub": "smart_contracts.leak_swap.contract.LeakSwap.disburse_funds",
+      "op": "callsub disburse_funds",
+      "stack_out": []
+    },
+    "583": {
+      "retsub": true,
+      "op": "retsub"
+    }
+  }
+}
