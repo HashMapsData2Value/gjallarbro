@@ -73,19 +73,6 @@ class LeakSwap(ARC4Contract):
             fee=0,
         ).submit()
 
-    # TODO: For when we have ASA support
-    # @subroutine
-    # def disburse_assets(self, recipient: arc4.Address):
-    #   """
-    #   Disburses ASA funds to the recipient.
-    #   """
-    #     itxn.AssetTransfer(
-    #         asset_id=self.asset_id,
-    #         amount=?,
-    #         close_to=recipient.native,
-    #         fee=0,
-    #     ).submit()
-
     @subroutine
     def leaky_verify_ed25519(self, signature: arc4.DynamicBytes, xternal_pk: arc4.DynamicBytes) -> None:
         """
@@ -102,13 +89,6 @@ class LeakSwap(ARC4Contract):
             op.extract(signature.bytes, 2, 64), 
             op.extract(xternal_pk.bytes, 2, 32)
         )
-
-    # TODO: For when we have secp256k1 support, to swap on other chains
-    # @subroutine
-    # def leaky_verify_secp256k1(self, signature, xternal_pk):
-    # ...
-    # ...
-    # ...
 
     @arc4.abimethod()
     def set_ready(self) -> None:
