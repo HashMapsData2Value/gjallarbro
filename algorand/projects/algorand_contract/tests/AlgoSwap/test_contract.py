@@ -198,8 +198,6 @@ def test_invalid_leaky_refund_after_t0(context: AlgopyTestContext, contract: Lea
         with context.txn.create_group(active_txn_overrides={"sender": ali_algo_address.address}):
             contract.leaky_refund(arc4.DynamicBytes(leaky_sig))
 
-# Additional tests for invalid actions
-
 def test_invalid_leaky_refund_with_wrong_signature(context: AlgopyTestContext, contract: LeakSwap, ali_xternal_keys) -> None:
     # Arrange
     assert contract.get_contract_state() == arc4.UInt64(0)
